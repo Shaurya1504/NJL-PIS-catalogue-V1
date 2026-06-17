@@ -1,9 +1,8 @@
 services:
   - type: web
     name: njl-catalogue
-    runtime: python
-    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
-    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: PARQUET_BLOB_URL
         value: "https://njlprodimages.blob.core.windows.net/protopisfolder/BOM_Enriched_Latest_Transdate.parquet"
