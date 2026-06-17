@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Novel Jewels — Product Catalogue</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<!-- ══════ INTRO PAGE ══════ -->
+<div id="introPage" style="
+  position:fixed;inset:0;z-index:9999;
+  background:#0a1628;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+">
+  <!-- Background hero image with overlay -->
+  <div style="
+    position:absolute;inset:0;
+    background:url('https://etimg.etb2bimg.com/thumb/msid-117350730,width-1200,height-900,resizemode-4/117350730.jpg') center/cover no-repeat;
+    opacity:0.45;
+  "></div>
+  <!-- Gold gradient overlay -->
+  <div style="
+    position:absolute;inset:0;
+    background:linear-gradient(160deg,rgba(10,22,40,0.72) 0%,rgba(10,22,40,0.4) 50%,rgba(10,22,40,0.82) 100%);
+  "></div>
+  <!-- Brand text -->
+  <div style="position:relative;text-align:center;color:#fff;">
+    <div style="font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,72px);font-weight:700;letter-spacing:0.04em;line-height:1.1;text-shadow:0 2px 24px rgba(0,0,0,0.6);">
+      Novel <span style="color:#f5cc5a;">Jewels</span>
+    </div>
+    <div style="font-family:'Inter',sans-serif;font-size:clamp(13px,1.8vw,18px);font-weight:300;letter-spacing:0.22em;text-transform:uppercase;margin-top:10px;color:rgba(255,255,255,0.75);text-shadow:0 1px 8px rgba(0,0,0,0.5);">
+      Aditya Birla Group &nbsp;·&nbsp; INDRIYA
+    </div>
+    <div style="margin-top:28px;display:flex;align-items:center;justify-content:center;gap:10px;">
+      <div style="width:40px;height:1px;background:rgba(245,204,90,0.5);"></div>
+      <div style="font-family:'Inter',sans-serif;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,204,90,0.7);">Product Catalogue</div>
+      <div style="width:40px;height:1px;background:rgba(245,204,90,0.5);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ LOGIN MODAL (glass) ══════ -->
+<div id="loginOverlay" style="
+  position:fixed;inset:0;z-index:10000;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(5,12,28,0.55);
+  backdrop-filter:blur(3px);
+  -webkit-backdrop-filter:blur(3px);
+">
+  <div id="loginBox" style="
+    background:linear-gradient(145deg,rgba(255,255,255,0.11) 0%,rgba(245,204,90,0.07) 100%);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+    border:1.5px solid rgba(245,204,90,0.28);
+    border-radius:22px;
+    padding:52px 52px 44px;
+    width:min(480px,90vw);
+    box-shadow:0 8px 48px rgba(0,0,0,0.55),0 0 0 1px rgba(245,204,90,0.1);
+    animation:loginPop 0.38s cubic-bezier(.34,1.56,.64,1);
+  ">
+    <!-- Logo & title -->
+    <div style="text-align:center;margin-bottom:36px;">
+      <div style="display:inline-flex;align-items:center;justify-content:center;
+        width:62px;height:62px;border-radius:50%;
+        background:linear-gradient(135deg,#f5cc5a,#d4a017);
+        box-shadow:0 4px 20px rgba(212,160,23,0.45);
+        margin-bottom:18px;">
+        <img src="logo.png" alt="NJL" style="width:38px;height:38px;object-fit:contain;"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:22px;font-weight:700;color:#0f2347;\'>NJ</span>'"/>
+      </div>
+      <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:#fff;letter-spacing:0.02em;line-height:1.2;">
+        Welcome Back
+      </div>
+      <div style="font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px;letter-spacing:0.06em;">
+        Sign in to access the catalogue
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div style="display:flex;flex-direction:column;gap:18px;">
+      <div>
+        <label style="display:block;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,204,90,0.8);margin-bottom:8px;">Username</label>
+        <input id="loginUser" type="text" autocomplete="username" placeholder="Enter username"
+          style="width:100%;box-sizing:border-box;padding:14px 16px;
+            background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);
+            border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;
+            outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
+          onfocus="this.style.borderColor='rgba(245,204,90,0.55)';this.style.boxShadow='0 0 0 3px rgba(245,204,90,0.1)'"
+          onblur="this.style.borderColor='rgba(255,255,255,0.15)';this.style.boxShadow='none'"/>
+      </div>
+      <div>
+        <label style="display:block;font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,204,90,0.8);margin-bottom:8px;">Password</label>
+        <div style="position:relative;">
+          <input id="loginPass" type="password" autocomplete="current-password" placeholder="Enter password"
+            style="width:100%;box-sizing:border-box;padding:14px 46px 14px 16px;
+              background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);
+              border-radius:10px;color:#fff;font-family:'Inter',sans-serif;font-size:15px;
+              outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
+            onfocus="this.style.borderColor='rgba(245,204,90,0.55)';this.style.boxShadow='0 0 0 3px rgba(245,204,90,0.1)'"
+            onblur="this.style.borderColor='rgba(255,255,255,0.15)';this.style.boxShadow='none'"
+            onkeydown="if(event.key==='Enter')doLogin()"/>
+          <!-- Show/hide toggle -->
+          <button onclick="togglePwdVisible()" title="Toggle visibility"
+            style="position:absolute;right:14px;top:50%;transform:translateY(-50%);
+              background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.4);font-size:16px;padding:0;line-height:1;"
+            id="eyeBtn">👁</button>
+        </div>
+      </div>
+
+      <!-- Error msg -->
+      <div id="loginError" style="display:none;
+        background:rgba(220,60,60,0.18);border:1px solid rgba(220,60,60,0.4);
+        border-radius:8px;padding:11px 14px;
+        font-family:'Inter',sans-serif;font-size:13px;color:#ff8080;text-align:center;">
+      </div>
+
+      <!-- Submit -->
+      <button id="loginBtn" onclick="doLogin()"
+        style="margin-top:6px;padding:15px;border:none;border-radius:12px;cursor:pointer;
+          background:linear-gradient(135deg,#f5cc5a,#d4a017);
+          color:#0a1628;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;
+          letter-spacing:0.04em;box-shadow:0 4px 20px rgba(212,160,23,0.4);
+          transition:opacity 0.2s,transform 0.15s;">
+        Sign In
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes loginPop {
+  from { opacity:0; transform:scale(0.92) translateY(16px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+#loginBtn:hover { opacity:0.88; transform:translateY(-1px); }
+#loginBtn:active { transform:translateY(0); }
+#loginBtn:disabled { opacity:0.55; cursor:not-allowed; }
+</style>
+
+<script>
+(function() {
+  const authed  = sessionStorage.getItem('njl_authed');
+  const introEl = document.getElementById('introPage');
+  const loginEl = document.getElementById('loginOverlay');
+
+  if (authed === '1') {
+    // Already authenticated — skip everything
+    introEl.style.display = 'none';
+    loginEl.style.display = 'none';
+    return;
+  }
+
+  // After 5s show the login popup ON TOP of the intro page
+  setTimeout(() => {
+    loginEl.style.display = 'flex';
+    document.getElementById('loginUser').focus();
+  }, 5000);
+})();
+
+function togglePwdVisible() {
+  const inp = document.getElementById('loginPass');
+  const btn = document.getElementById('eyeBtn');
+  if (inp.type === 'password') { inp.type = 'text';     btn.textContent = '🙈'; }
+  else                         { inp.type = 'password'; btn.textContent = '👁'; }
+}
+
+async function doLogin() {
+  const btn   = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+  const u     = document.getElementById('loginUser').value.trim();
+  const p     = document.getElementById('loginPass').value;
+
+  errEl.style.display = 'none';
+  if (!u || !p) {
+    errEl.textContent   = 'Please enter both username and password.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = 'Signing in…';
+
+  try {
+    const res = await fetch('/api/auth/login', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ username: u, password: p }),
+    });
+
+    if (res.ok) {
+      sessionStorage.setItem('njl_authed', '1');
+      // Fade out both intro + login together, then reveal main page
+      const introEl = document.getElementById('introPage');
+      const loginEl = document.getElementById('loginOverlay');
+      loginEl.style.transition = 'opacity 0.5s ease';
+      introEl.style.transition = 'opacity 0.5s ease';
+      loginEl.style.opacity    = '0';
+      introEl.style.opacity    = '0';
+      setTimeout(() => {
+        introEl.style.display = 'none';
+        loginEl.style.display = 'none';
+      }, 500);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      errEl.textContent   = data.detail || 'Invalid username or password.';
+      errEl.style.display = 'block';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginPass').focus();
+    }
+  } catch(e) {
+    errEl.textContent   = 'Network error. Please try again.';
+    errEl.style.display = 'block';
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Sign In';
+  }
+}
+</script>
+
+<!-- ══════ HEADER ══════ -->
+<header class="header">
+  <div class="header-top">
+    <div class="brand-block">
+      <div class="logo-ring">
+        <img src="logo.png" alt="NJL"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
+        <div class="logo-fallback" style="display:none;font-size:18px;font-weight:700;color:#0f2347;background:linear-gradient(135deg,#f5cc5a,#d4a017);width:100%;height:100%;align-items:center;justify-content:center;border-radius:50%;">NJ</div>
+      </div>
+      <div>
+        <div class="brand-name">Novel <span>Jewels</span></div>
+        <div class="brand-tagline">Product Catalogue · Proto Information</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-card"><div class="num" id="statTotal">–</div><div class="lbl">Total SKUs</div></div>
+      <div class="stat-card"><div class="num" id="statShowing">–</div><div class="lbl">Showing</div></div>
+      <div class="stat-card"><div class="num" id="statSelected">0</div><div class="lbl">Selected</div></div>
+    </div>
+  </div>
+  <div class="header-bottom">
+    <div class="search-wrap">
+      <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input id="globalSearch" type="text" placeholder="Search SKU, theme, product type, vendor, metal, color… (contains)"/>
+      <button class="search-clear" id="searchClear" title="Clear" onclick="clearSearch()">✕</button>
+    </div>
+    <div class="results-badge"><strong id="badgeCount">0</strong> SKUs</div>
+  </div>
+</header>
+<div class="gold-line"></div>
+
+<!-- ══════ LAYOUT ══════ -->
+<div class="layout">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      <span class="sidebar-title">Filters</span>
+    </div>
+    <div id="filtersContainer"></div>
+    <div style="margin-top:14px;">
+      <button class="clear-all-btn" onclick="clearAllFilters()">✕ Clear All Filters</button>
+    </div>
+  </aside>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+    <div class="catalogue-grid" id="catalogueGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </main>
+</div>
+
+<!-- ══════ LOADING ══════ -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+</div>
+
+<!-- ══════ FLOATING DOWNLOAD BAR ══════ -->
+<div class="float-bar" id="floatBar">
+  <div>
+    <div class="float-bar-count" id="floatBarCount">0</div>
+    <div class="float-bar-label">SKU(s) selected</div>
+  </div>
+  <div class="float-bar-btns">
+    <button class="btn-download-pdf" onclick="downloadSelectedPDF()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Download PIS (PDF)
+    </button>
+    <button class="btn-clear-sel" onclick="clearSelection()">Clear</button>
+  </div>
+</div>
+
+<!-- ══════ EXPAND MODAL ══════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal modal-relative" id="pisModal">
+    <button class="modal-close" onclick="closeModal()" title="Close">✕</button>
+
+    <!-- TOP: PIS Header -->
+    <div class="pis-header">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2yRi9YAoEGGufoVhsTCFClPsAsZhEyL9qTA&s"
+           alt="NJL Logo" class="pis-logo" onerror="this.src='logo.png'"/>
+      <div class="pis-title">
+        Proto Information Sheet
+        <span class="sku-ref" id="pisSkuRef">–</span>
+      </div>
+      <div class="pis-company">
+        <div class="co-name">Novel Jewels Ltd.</div>
+        <div class="co-sub">Aditya Birla Group · INDRIYA</div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <!-- INFO SECTION -->
+      <div class="pis-info-section">
+        <div class="pis-table-grid" id="pisInfoGrid"></div>
+        <div class="pis-full-table" style="margin-top:10px;" id="pisSubnameRow"></div>
+      </div>
+
+      <!-- IMAGES SECTION -->
+      <div class="pis-images-section">
+        <div class="pis-images-title">Product Images</div>
+        <div class="pis-images-row" id="pisImagesRow"></div>
+      </div>
+
+      <!-- BOM SECTION — 5 columns: Ingredient, Description, Unit, Qty, CW Qty -->
+      <div class="pis-bom-section">
+        <div class="pis-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          Bill of Materials (BOM)
+        </div>
+        <table class="bom-table" id="pisBomTable">
+          <thead>
+            <tr>
+              <th>Ingredient Item</th>
+              <th>Description</th>
+              <th>Unit</th>
+              <th style="text-align:right">Net Wt</th>
+              <th style="text-align:right">Stone Qty</th>
+            </tr>
+          </thead>
+          <tbody id="pisBomBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-pis-download" onclick="downloadCurrentPIS()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download PIS as PDF
+      </button>
+      <button class="btn-modal-close-footer" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ TOAST ══════ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ══════ WATERMARKS ══════ -->
+<div style="position:fixed;bottom:18px;right:22px;z-index:8000;font-family:'Playfair Display',serif;font-size:13px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(212,160,23,0.38);pointer-events:none;user-select:none;">NJL · MDM</div>
+<div style="position:fixed;bottom:18px;left:18px;z-index:8000;font-family:'Inter',sans-serif;font-size:11px;font-weight:400;letter-spacing:0.08em;color:rgba(255,255,255,0.1);pointer-events:none;user-select:none;">Shaurya Berawala</div>
+
+<script src="script.js"></script>
+</body>
+</html>
